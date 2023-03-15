@@ -13,11 +13,11 @@ class BudgetService {
         const budgetRepo = new BudgetRepo();
         const budgets = budgetRepo.getAll();
         const yearMonthsBetweenPeriod = this.getYearMonthsBetweenPeriod(startDate, endDate);
-        const matchBudgets = budgets.filter((budget) => {
-            return yearMonthsBetweenPeriod.includes(budget.yearMonth);
-        });
+        // const matchBudgets = budgets.filter((budget) => {
+        //     return yearMonthsBetweenPeriod.includes(budget.yearMonth);
+        // });
         let period = new Period(startDate, endDate);
-        return matchBudgets
+        return budgets
             .map((budget) => budget.overlappingAmount(period))
             .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
     }

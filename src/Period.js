@@ -8,6 +8,9 @@ class Period {
     }
 
     overlappingDays(anotherPeriod) {
+        if (this.startDate.isAfter(anotherPeriod.endDate) || this.endDate.isBefore(anotherPeriod.startDate)) {
+            return 0;
+        }
         let overlappingEnd = this.endDate.isBefore(anotherPeriod.endDate)
             ? this.endDate
             : anotherPeriod.endDate;
