@@ -7,20 +7,23 @@ class Budget {
         this.amount = amount;
     }
 
-    dayBudget() {
+    overlappingAmount(period) {
+        return period.overlappingDays(this.#createPeriod()) * this.#dayBudget();
+    }
+
+    #dayBudget() {
         return this.amount / dayjs(this.yearMonth).daysInMonth();
     }
 
-    overlappingAmount(period ) {
-        return period.overlappingDays(this.createPeriod()) * this.dayBudget();
+    #createPeriod() {
+        return new Period(this.#firstDay(), this.#lastDay());
     }
-    createPeriod() {
-        return new Period(this.firstDay(), this.lastDay());
-    }
-    firstDay() {
+
+    #firstDay() {
         return dayjs(this.yearMonth).startOf('month');
     }
-    lastDay() {
+
+    #lastDay() {
         return dayjs(this.yearMonth).endOf('month');
     }
 }
