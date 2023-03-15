@@ -28,17 +28,13 @@ class BudgetService {
                 const monthEnd = budget.lastDay();
                 totalBudget += (monthEnd.diff(startDate, 'day') + 1) * budget.dayBudget();
             } else if (budget.yearMonth === endDate.format('YYYYMM')) {
-                const monthStart = this.firstDay(budget);
+                const monthStart = budget.firstDay();
                 totalBudget += (endDate.diff(monthStart, 'day') + 1) * budget.dayBudget();
             } else {
                 totalBudget += budget.amount;
             }
         });
         return totalBudget;
-    }
-
-    firstDay(budget) {
-        return dayjs(budget.yearMonth).startOf('month');
     }
 
     getYearMonthsBetweenPeriod(startDate, endDate) {

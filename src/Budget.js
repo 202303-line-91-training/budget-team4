@@ -10,6 +10,9 @@ class Budget {
         return this.amount / dayjs(this.yearMonth).daysInMonth();
     }
 
+    firstDay() {
+        return dayjs(this.yearMonth).startOf('month');
+    }
     lastDay() {
         return dayjs(this.yearMonth).endOf('month');
     }
