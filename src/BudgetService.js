@@ -31,7 +31,10 @@ class BudgetService {
                 const monthStart = budget.firstDay();
                 totalBudget += (endDate.diff(monthStart, 'day') + 1) * budget.dayBudget();
             } else {
-                totalBudget += budget.amount;
+                const monthStart = budget.firstDay();
+                const monthEnd = budget.lastDay();
+                totalBudget += (monthEnd.diff(monthStart, 'day') + 1) * budget.dayBudget();
+                // totalBudget += budget.amount;
             }
         });
         return totalBudget;
