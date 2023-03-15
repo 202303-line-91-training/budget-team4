@@ -27,7 +27,7 @@ class BudgetService {
         matchBudgets.forEach((budget) => {
             let period = new Period(startDate, endDate);
             let anotherPeriod = new Period(budget.firstDay(), budget.lastDay());
-            const overlappingDays = period.overlappingDays(budget, anotherPeriod);
+            const overlappingDays = period.overlappingDays(anotherPeriod);
             totalBudget += overlappingDays * budget.dayBudget();
         });
         return totalBudget;
