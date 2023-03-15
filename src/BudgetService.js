@@ -17,11 +17,14 @@ class BudgetService {
             return yearMonthsBetweenPeriod.includes(budget.yearMonth);
         });
         let period = new Period(startDate, endDate);
-        let totalBudget = 0;
-        matchBudgets.forEach((budget) => {
-            totalBudget += budget.overlappingAmount(period);
-        });
-        return totalBudget;
+        // let totalBudget = 0;
+        return matchBudgets
+            .map((budget) =>
+                    // .forEach((budget) => {
+                    budget.overlappingAmount(period)
+                // totalBudget += budget.overlappingAmount(period);
+            ).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+        // return totalBudget;
     }
 
     getYearMonthsBetweenPeriod(startDate, endDate) {
