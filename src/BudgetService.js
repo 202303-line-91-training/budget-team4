@@ -36,7 +36,8 @@ class BudgetService {
                 overlappingStart = budget.firstDay();
                 overlappingEnd = budget.lastDay();
             }
-            totalBudget += (overlappingEnd.diff(overlappingStart, 'day') + 1) * budget.dayBudget();
+            const overlappingDays = overlappingEnd.diff(overlappingStart, 'day') + 1;
+            totalBudget += overlappingDays * budget.dayBudget();
         });
         return totalBudget;
     }
