@@ -11,14 +11,14 @@ class BudgetService {
         }
         const budgetRepo = new BudgetRepo();
         const budgets = budgetRepo.getAll();
-        const keys = this.getYearMonthsBetweenPeriod(startDate, endDate);
+        const yearMonthsBetweenPeriod = this.getYearMonthsBetweenPeriod(startDate, endDate);
         const searchResult = budgets.filter((budget) => {
-            return keys.indexOf(budget.yearMonth) > -1;
+            return yearMonthsBetweenPeriod.indexOf(budget.yearMonth) > -1;
         });
         if (searchResult.length === 0) {
             return 0;
         }
-        if (keys.length === 1) {
+        if (yearMonthsBetweenPeriod.length === 1) {
             const days = endDate.diff(startDate, 'day') + 1;
             return searchResult[0].dayBudget() * days;
         }
