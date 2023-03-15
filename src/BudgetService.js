@@ -10,27 +10,10 @@ class BudgetService {
         if (endDate.isBefore(startDate)) {
             return 0;
         }
-        const budgetRepo = new BudgetRepo();
-        const budgets = budgetRepo.getAll();
-        const yearMonthsBetweenPeriod = this.getYearMonthsBetweenPeriod(startDate, endDate);
-        // const matchBudgets = budgets.filter((budget) => {
-        //     return yearMonthsBetweenPeriod.includes(budget.yearMonth);
-        // });
         let period = new Period(startDate, endDate);
-        return budgets
+        return new BudgetRepo().getAll()
             .map((budget) => budget.overlappingAmount(period))
             .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
-    }
-
-    getYearMonthsBetweenPeriod(startDate, endDate) {
-        startDate = startDate.startOf('month');
-        endDate = endDate.startOf('month');
-        let result = [];
-        while (endDate.unix() >= startDate.unix()) {
-            result.push(startDate.format('YYYYMM'));
-            startDate = startDate.add(1, 'month');
-        }
-        return result;
     }
 }
 
