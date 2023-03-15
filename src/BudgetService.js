@@ -19,7 +19,6 @@ class BudgetService {
             return 0;
         }
         if (startDate.format('YYYYMM') === endDate.format('YYYYMM')) {
-            // if (yearMonthsBetweenPeriod.length === 1) {
             const days = endDate.diff(startDate, 'day') + 1;
             return matchBudgets[0].dayBudget() * days;
         }
