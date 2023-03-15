@@ -12,23 +12,22 @@ class BudgetService {
         const budgetRepo = new BudgetRepo();
         const budgets = budgetRepo.getAll();
         const yearMonthsBetweenPeriod = this.getYearMonthsBetweenPeriod(startDate, endDate);
-        const searchResult = budgets.filter((budget) => {
+        const matchBudgets = budgets.filter((budget) => {
             return yearMonthsBetweenPeriod.includes(budget.yearMonth);
-            // return yearMonthsBetweenPeriod.indexOf(budget.yearMonth) > -1;
         });
-        if (searchResult.length === 0) {
+        if (matchBudgets.length === 0) {
             return 0;
         }
         if (yearMonthsBetweenPeriod.length === 1) {
             const days = endDate.diff(startDate, 'day') + 1;
-            return searchResult[0].dayBudget() * days;
+            return matchBudgets[0].dayBudget() * days;
         }
         let totalBudget = 0;
-        searchResult.forEach((budget, index) => {
+        matchBudgets.forEach((budget, index) => {
             if (index === 0) {
                 const monthEnd = dayjs(budget.yearMonth).endOf('month');
                 totalBudget += (monthEnd.diff(startDate, 'day') + 1) * budget.dayBudget();
-            } else if (index === searchResult.length - 1) {
+            } else if (index === matchBudgets.length - 1) {
                 const monthStart = dayjs(budget.yearMonth).startOf('month');
                 totalBudget += (endDate.diff(monthStart, 'day') + 1) * budget.dayBudget();
             } else {
