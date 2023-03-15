@@ -25,7 +25,7 @@ class BudgetService {
         let totalBudget = 0;
         matchBudgets.forEach((budget) => {
             if (budget.yearMonth === startDate.format('YYYYMM')) {
-                const monthEnd = dayjs(budget.yearMonth).endOf('month');
+                const monthEnd = this.lastDay(budget);
                 totalBudget += (monthEnd.diff(startDate, 'day') + 1) * budget.dayBudget();
             } else if (budget.yearMonth === endDate.format('YYYYMM')) {
                 const monthStart = dayjs(budget.yearMonth).startOf('month');
@@ -35,6 +35,10 @@ class BudgetService {
             }
         });
         return totalBudget;
+    }
+
+    lastDay(budget) {
+        return dayjs(budget.yearMonth).endOf('month');
     }
 
     getYearMonthsBetweenPeriod(startDate, endDate) {
