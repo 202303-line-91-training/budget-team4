@@ -24,22 +24,26 @@ class BudgetService {
         }
         let totalBudget = 0;
         matchBudgets.forEach((budget) => {
-            let overlappingEnd;
-            let overlappingStart;
-            if (budget.yearMonth === startDate.format('YYYYMM')) {
-                overlappingEnd = budget.lastDay();
-                overlappingStart = startDate;
-            } else if (budget.yearMonth === endDate.format('YYYYMM')) {
-                overlappingStart = budget.firstDay();
-                overlappingEnd = endDate;
-            } else {
-                overlappingStart = budget.firstDay();
-                overlappingEnd = budget.lastDay();
-            }
-            const overlappingDays = overlappingEnd.diff(overlappingStart, 'day') + 1;
+            const overlappingDays = this.overlappingDays(budget, startDate, endDate);
             totalBudget += overlappingDays * budget.dayBudget();
         });
         return totalBudget;
+    }
+
+    overlappingDays(budget, startDate, endDate) {
+        let overlappingEnd;
+        let overlappingStart;
+        if (budget.yearMonth === startDate.format('YYYYMM')) {
+            overlappingEnd = budget.lastDay();
+            overlappingStart = startDate;
+        } else if (budget.yearMonth === endDate.format('YYYYMM')) {
+            overlappingStart = budget.firstDay();
+            overlappingEnd = endDate;
+        } else {
+            overlappingStart = budget.firstDay();
+            overlappingEnd = budget.lastDay();
+        }
+        return overlappingEnd.diff(overlappingStart, 'day') + 1;
     }
 
     getYearMonthsBetweenPeriod(startDate, endDate) {
