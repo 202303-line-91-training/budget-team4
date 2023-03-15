@@ -31,8 +31,10 @@ class BudgetService {
         return totalBudget;
     }
 
-    overlappingDays(budget, startDate, endDate) {
-        let period = new Period(startDate, endDate);
+    overlappingDays(budget, startDate1, endDate1) {
+        let period = new Period(startDate1, endDate1);
+        let startDate = period.startDate;
+        let endDate = period.endDate;
         let overlappingEnd;
         let overlappingStart;
         if (budget.yearMonth === startDate.format('YYYYMM')) {
