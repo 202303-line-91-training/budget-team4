@@ -1,6 +1,17 @@
 const dayjs = require('dayjs');
 const BudgetRepo = require('./BudgetRepo');
 
+class Period {
+    startDate;
+    endDate;
+
+    constructor(startDate, endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+}
+
 class BudgetService {
 
     query(start, end) {
@@ -31,6 +42,7 @@ class BudgetService {
     }
 
     overlappingDays(budget, startDate, endDate) {
+        let period = new Period(startDate, endDate);
         let overlappingEnd;
         let overlappingStart;
         if (budget.yearMonth === startDate.format('YYYYMM')) {
