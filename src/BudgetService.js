@@ -26,13 +26,9 @@ class BudgetService {
         let totalBudget = 0;
         let period = new Period(startDate, endDate);
         matchBudgets.forEach((budget) => {
-            totalBudget += this.overlappingAmount(period, budget);
+            totalBudget += budget.overlappingAmount(period);
         });
         return totalBudget;
-    }
-
-    overlappingAmount(period, budget) {
-        return period.overlappingDays(budget.createPeriod()) * budget.dayBudget();
     }
 
     getYearMonthsBetweenPeriod(startDate, endDate) {

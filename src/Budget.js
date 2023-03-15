@@ -11,6 +11,9 @@ class Budget {
         return this.amount / dayjs(this.yearMonth).daysInMonth();
     }
 
+    overlappingAmount(period ) {
+        return period.overlappingDays(this.createPeriod()) * this.dayBudget();
+    }
     createPeriod() {
         return new Period(this.firstDay(), this.lastDay());
     }
