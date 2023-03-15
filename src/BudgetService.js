@@ -23,13 +23,11 @@ class BudgetService {
             return matchBudgets[0].dayBudget() * days;
         }
         let totalBudget = 0;
-        matchBudgets.forEach((budget, index) => {
+        matchBudgets.forEach((budget) => {
             if (budget.yearMonth === startDate.format('YYYYMM')) {
-                // if (index === 0) {
                 const monthEnd = dayjs(budget.yearMonth).endOf('month');
                 totalBudget += (monthEnd.diff(startDate, 'day') + 1) * budget.dayBudget();
             } else if (budget.yearMonth === endDate.format('YYYYMM')) {
-                // } else if (index === matchBudgets.length - 1) {
                 const monthStart = dayjs(budget.yearMonth).startOf('month');
                 totalBudget += (endDate.diff(monthStart, 'day') + 1) * budget.dayBudget();
             } else {
