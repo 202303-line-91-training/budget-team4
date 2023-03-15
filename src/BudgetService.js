@@ -1,16 +1,6 @@
 const dayjs = require('dayjs');
 const BudgetRepo = require('./BudgetRepo');
-
-class Period {
-    startDate;
-    endDate;
-
-    constructor(startDate, endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-}
+const Period = require("./Period");
 
 class BudgetService {
 
