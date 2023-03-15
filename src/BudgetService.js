@@ -16,13 +16,13 @@ class BudgetService {
         const matchBudgets = budgets.filter((budget) => {
             return yearMonthsBetweenPeriod.includes(budget.yearMonth);
         });
-        if (matchBudgets.length === 0) {
-            return 0;
-        }
-        if (startDate.format('YYYYMM') === endDate.format('YYYYMM')) {
-            const days = endDate.diff(startDate, 'day') + 1;
-            return matchBudgets[0].dayBudget() * days;
-        }
+        // if (matchBudgets.length === 0) {
+        //     return 0;
+        // }
+        // if (startDate.format('YYYYMM') === endDate.format('YYYYMM')) {
+        //     const days = endDate.diff(startDate, 'day') + 1;
+        //     return matchBudgets[0].dayBudget() * days;
+        // }
         let totalBudget = 0;
         let period = new Period(startDate, endDate);
         matchBudgets.forEach((budget) => {
