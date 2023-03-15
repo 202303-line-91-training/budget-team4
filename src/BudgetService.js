@@ -13,7 +13,8 @@ class BudgetService {
         const budgets = budgetRepo.getAll();
         const yearMonthsBetweenPeriod = this.getYearMonthsBetweenPeriod(startDate, endDate);
         const searchResult = budgets.filter((budget) => {
-            return yearMonthsBetweenPeriod.indexOf(budget.yearMonth) > -1;
+            return yearMonthsBetweenPeriod.includes(budget.yearMonth);
+            // return yearMonthsBetweenPeriod.indexOf(budget.yearMonth) > -1;
         });
         if (searchResult.length === 0) {
             return 0;
