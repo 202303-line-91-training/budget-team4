@@ -25,16 +25,15 @@ class BudgetService {
         let totalBudget = 0;
         matchBudgets.forEach((budget) => {
             if (budget.yearMonth === startDate.format('YYYYMM')) {
-                const monthEnd = budget.lastDay();
-                totalBudget += (monthEnd.diff(startDate, 'day') + 1) * budget.dayBudget();
+                const overlappingEnd = budget.lastDay();
+                totalBudget += (overlappingEnd.diff(startDate, 'day') + 1) * budget.dayBudget();
             } else if (budget.yearMonth === endDate.format('YYYYMM')) {
-                const monthStart = budget.firstDay();
-                totalBudget += (endDate.diff(monthStart, 'day') + 1) * budget.dayBudget();
+                const overlappingStart = budget.firstDay();
+                totalBudget += (endDate.diff(overlappingStart, 'day') + 1) * budget.dayBudget();
             } else {
-                const monthStart = budget.firstDay();
-                const monthEnd = budget.lastDay();
-                totalBudget += (monthEnd.diff(monthStart, 'day') + 1) * budget.dayBudget();
-                // totalBudget += budget.amount;
+                const overlappingStart = budget.firstDay();
+                const overlappingEnd = budget.lastDay();
+                totalBudget += (overlappingEnd.diff(overlappingStart, 'day') + 1) * budget.dayBudget();
             }
         });
         return totalBudget;
